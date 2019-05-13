@@ -1,0 +1,4 @@
+[submodule "irrlicht"]
+	path = irrlicht
+	url = git@github.com:savegame/sailfish-irrlicht.git
+	branch = qt_rendering

@@ -19,7 +19,7 @@ int main(int argc, char *argv[])
 	qmlRegisterType<IrrQuickWindow>("ru.sashikknox", 1, 0, "IrrQuickWindow");
 	qmlRegisterType<IrrlichtQuickItem>("ru.sashikknox", 1, 0, "IrrQuickItem");
 
-	QQmlApplicationEngine engine;
+	QQmlApplicationEngine engine;	
 	engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
 	if (engine.rootObjects().isEmpty())
 		return -1;
