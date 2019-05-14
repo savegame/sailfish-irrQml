@@ -7,7 +7,12 @@ DESTDIR = $$OUT_PWD/lib
 CONFIG += warn_off qt
 #CONFIG += staticlib
 QT += core quick
-CONFIG += wayland-compositor link_pkgconfig
+sailfish {
+    CONFIG += link_pkgconfig
+}
+else {
+    CONFIG += wayland-compositor link_pkgconfig
+}
 QMAKE_CXXFLAGS += -fPIC
 
 debug: DEFINES += Q_ENABLE_OPENGL_FUNCTIONS_DEBUG
@@ -48,10 +53,10 @@ osx: {
     DEFINES += _IRR_OSX_PLATFORM_
 }
 
-ios | sailfish : {
+ios | sailfish | android: {
     DEFINES += GLES2_PLATFORM=1
 }
-android: DEFINES += GLES2_PLATFORM
+
 INCLUDEPATH += $$PWD/irrlicht/
 INCLUDEPATH += $$PWD/irrlicht/include
 INCLUDEPATH += $$PWD/irrlicht/source/Irrlicht
@@ -72,6 +77,9 @@ debug: DEFINES += _DEBUG
 debug: DEFINES += _OUT_PWD_PATH=\\\"$$OUT_PWD\\\"
 android : {
     DEFINES += _MEDIA_PATH=\\\"media/\\\"
+}
+sailfish {
+        DEFINES += _MEDIA_PATH=\\\"/usr/share/irrquicktest/media/\\\"
 }
 else {
     DEFINES += _MEDIA_PATH=\\\"$$PWD/irrlicht/media/\\\"

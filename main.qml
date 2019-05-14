@@ -1,5 +1,6 @@
 import QtQuick 2.9
-import QtQuick.Controls 2.0
+//import QtQuick.Controls 1.4
+import Sailfish.Silica 1.0
 import QtQml.Models 2.1
 import QtQuick.Window 2.2
 import ru.sashikknox 1.0
@@ -19,28 +20,7 @@ Window {
         focus: true
     }
      
-//    ComboBox {
-//        anchors {
-//            right:  parent.right
-//            top: parent.top
-//            margins: 10
-//        }
-        
-//        width: Math.min ( parent.width * 0.3, 160 )
-        
-//        model: ListModel {
-//            id: cbItems
-//            ListElement { text: "Normal"; color: "Yellow" }
-//            ListElement { text: "Rotate 90"; color: "Green" }
-//            ListElement { text: "Rotate 180"; color: "Brown" }
-//            ListElement { text: "Rotate 270"; color: "Green" }
-//        }
-        
-//        onCurrentIndexChanged: {
-//            irrItem.renderOrientation = currentIndex;
-//        }
-//    }
-    
+
     Rectangle {
         id: joystick
         width: 150

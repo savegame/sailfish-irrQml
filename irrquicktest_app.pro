@@ -3,6 +3,10 @@ CONFIG += c++11 qt
 debug: CONFIG += qml_debug
 QT += quick core
 
+sailfish {
+    CONFIG += sailfishapp
+}
+
 
 INCLUDEPATH += $$PWD
 INCLUDEPATH += $$PWD/irrlicht/source/qt
@@ -11,9 +15,9 @@ INCLUDEPATH += $$PWD/irrlicht/include
 include(Irrlicht_include.pri)
 #include(irrlicht/irrlicht_static.pri)
 
-TARGET = IrrQuickTest 
+TARGET = irrquicktest
 
-DESTDIR = $$OUT_PWD
+DESTDIR = $$OUT_PWD/
 LIBS += -L$$DESTDIR -L$$DESTDIR/lib
 LIBS += -Wl,-rpath,$$DESTDIR/
 LIBS += -lirrlicht  -Llib
@@ -29,15 +33,15 @@ DEFINES += _IRR_COMPILE_WITH_QGLFUNCTIONS_
 RESOURCES += qml.qrc
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
-QML_IMPORT_PATH =
+#QML_IMPORT_PATH =
 
 # Additional import path used to resolve QML modules just for Qt Quick Designer
-QML_DESIGNER_IMPORT_PATH =
+#QML_DESIGNER_IMPORT_PATH =
 
 # Default rules for deployment.
-qnx: target.path = /tmp/$${TARGET}/bin
-else: unix:!android: target.path = /opt/$${TARGET}/bin
-!isEmpty(target.path): INSTALLS += target
+#qnx: target.path = /tmp/$${TARGET}/bin
+#else: unix:!android: target.path = /opt/$${TARGET}/bin
+#!isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
     SGIrrNode.h \
@@ -52,10 +56,25 @@ SOURCES += \
     ScreenNode.cpp \
     ScreenShaderCB.cpp 
 
+SAILFISH_DISTFILES=""
+sailfish {
+    irrlicht_lib.files = $$OUT_PWD/lib/libirrlicht.so*
+    irrlicht_lib.path = /usr/share/$$TARGET/lib/
+
+    INSTALLS += irrlicht_lib
+    SAILFISH_DISTFILES = \
+        rpm/* \
+        $${TARGET}.png \
+        $${TARGET}.desktop
+}
+
+ANDROID_DISTFILES=""
 android: {
-DISTFILES += \
+ANDROID_DISTFILES = \
     android/AndroidManifest.xml \
     android/res/values/styles.xml
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
 }
 
+DISTFILES += $${ANDROID_DISTFILES}
+DISTFILES += $${SAILFISH_DISTFILES}
